@@ -9,54 +9,92 @@
   body{
     margin:0;
     font-family:'Poppins',sans-serif;
+    height:100vh;
     background:#eef2ff;
     display:flex;
     flex-direction:column;
-    height:100vh;
-  }
-
-  /* AREA KONTEN */
-  #content{
-    flex:1;
-    display:flex;
-    align-items:center;
-    justify-content:center;
-    padding:0;
     overflow:hidden;
-    padding-bottom:90px; /* agar tidak ketutup menu */
   }
 
-  /* BACKGROUND HOME */
+  /* ==========================================
+     PAGE WRAPPER (show/hide)
+  ========================================== */
+  .page{
+    flex:1;
+    width:100%;
+    height:100%;
+    overflow:auto;
+    display:none;
+  }
+  .page.active{
+    display:block;
+  }
+
+  /* ==========================================
+     HOME PAGE DESIGN
+  ========================================== */
   .home-bg{
     width:100%;
     height:100%;
     background:
-      linear-gradient( rgba(0,0,0,.55), rgba(0,0,0,.55) ),
-      url('https://images.unsplash.com/photo-1524995997946-a1c2e315a42f?w=1600&auto=format');
+      linear-gradient(rgba(0,0,0,.55),rgba(0,0,0,.55)),
+      url("bg.jpg");
     background-size:cover;
     background-position:center;
     display:flex;
     align-items:center;
     justify-content:center;
+    padding:20px;
   }
 
   .home-box{
     text-align:center;
     color:white;
-    padding:30px;
-    max-width:750px;
-  }
-  .home-box h1{
-    font-size:2.35rem;
-    font-weight:700;
-    margin-bottom:8px;
-  }
-  .home-box p{
-    font-size:1.05rem;
-    opacity:.93;
+    max-width:700px;
+    padding:20px;
   }
 
-  /* MENU BAWAH */
+  .welcome-photo{
+    width:150px;
+    height:150px;
+    border-radius:50%;
+    overflow:hidden;
+    margin:0 auto 16px auto;
+    border:4px solid white;
+    box-shadow:0 8px 20px rgba(0,0,0,.35);
+  }
+  .welcome-photo img{
+    object-fit:cover;
+    width:100%;
+    height:100%;
+    display:block;
+  }
+
+  #typing{
+    font-size:2rem;
+    font-weight:700;
+    border-right:3px solid white;
+    padding-right:6px;
+    white-space:nowrap;
+    overflow:hidden;
+    animation:blink .6s infinite alternate;
+  }
+
+  @keyframes blink{
+    0%{border-color:rgba(255,255,255,1);}
+    100%{border-color:rgba(255,255,255,0);}
+  }
+
+  .home-box p{
+    margin-top:10px;
+    font-size:1rem;
+    opacity:.94;
+    line-height:1.6;
+  }
+
+  /* ==========================================
+     MENU
+  ========================================== */
   .menu-bar{
     position:fixed;
     bottom:0;
@@ -66,163 +104,162 @@
     justify-content:center;
     gap:10px;
     padding:12px;
-    border-top:1px solid #ddd;
     background:white;
-    z-index:99999;
+    border-top:1px solid #ddd;
+    overflow-x:auto;
+    z-index:2000;
   }
 
   .menu-item{
-    padding:8px 14px;
-    border:2px solid #c9c9c9;
-    border-radius:10px;
+    padding:10px 16px;
+    border:2px solid #bbb;
+    border-radius:12px;
     background:white;
     cursor:pointer;
-    font-size:.95rem;
+    font-size:.9rem;
     font-weight:500;
+    white-space:nowrap;
     transition:.18s;
   }
-
   .menu-item:hover{
-    background:#f5f5f5;
-    transform:translateY(-2px);
+    transform:translateY(-4px);
+    box-shadow:0 8px 14px rgba(0,0,0,.15);
   }
-
   .menu-item.active{
-    border-color:#4f7cff;
-    color:#4f7cff;
-    background:#ebf1ff;
-    font-weight:600;
+    border-color:#4b73ff;
+    background:#e8efff;
+    color:#4b73ff;
+    transform:translateY(-4px);
+    box-shadow:0 8px 14px rgba(0,0,0,.15);
   }
 
-  /* EMBED WRAPPER */
-  .embed-wrapper{
-    width:100%;
-    height:100%;
+  /* ==========================================
+     EMBED PAGES
+  ========================================== */
+  .embedbox{
     padding:12px;
-    display:flex;
-    justify-content:center;
-    align-items:center;
-    overflow:hidden;
+  }
+  iframe{
+    width:100%;
+    height:calc(100vh - 110px);
+    border:none;
+    border-radius:14px;
   }
 
-  iframe{
-    border:none;
-    width:100%;
-    height:100%;
-    border-radius:12px;
+  /* ==========================================
+     RESPONSIVE MODE HP
+  ========================================== */
+  @media (max-width:600px){
+    .welcome-photo{
+      width:120px;
+      height:120px;
+    }
+    #typing{
+      font-size:1.4rem;
+    }
+    .home-box p{
+      font-size:.85rem;
+    }
+    .menu-item{
+      padding:6px 12px;
+      font-size:.8rem;
+      border-radius:10px;
+    }
+    iframe{
+      height:calc(100vh - 130px);
+    }
   }
 </style>
 </head>
+
 <body>
 
-<div id="content">
-  <!-- HALAMAN HOME -->
+<!-- ====================== HOME ====================== -->
+<div id="home" class="page active">
   <div class="home-bg">
     <div class="home-box">
-      <h1>Selamat Datang, Ibu Yustina 👩‍🏫</h1>
-      <p>di SD Semut-Semut the Natural School.<br>Penilai EKKS Tahun 2025.</p>
+
+      <!-- FOTO (boleh ganti foto ibu / logo sekolah) -->
+      <div class="welcome-photo">
+        <img src="guru.jpg" alt="Foto Ibu Yustina">
+      </div>
+
+      <h2 id="typing"></h2>
+
+      <p>
+        Evaluasi Kinerja Kepala Sekolah (manajerial, supervisi, kemitraan, dan kewirausahaan).<br>
+        Tahun Ajaran 2025/2026. SD Semut-Semut the Natural School.<br>
+        <br>
+      </p>
+
     </div>
   </div>
 </div>
 
-<!-- MENU BAWAH -->
+<!-- ===================== PAGE 1 ===================== -->
+<div id="m1" class="page">
+  <div class="embedbox">
+    <iframe src="https://www.canva.com/design/DAG5ztnghsM/77JsyklClNF6-VrNosrT8w/view?embed"></iframe>
+  </div>
+</div>
+
+<!-- ===================== PAGE 2 ===================== -->
+<div id="m2" class="page">
+  <div class="embedbox">
+    <iframe src="https://www.canva.com/design/DAG6R-t068I/RtTemAldUg320D-JLWRYxA/view?embed"></iframe>
+  </div>
+</div>
+
+<!-- ===================== PAGE 3 ===================== -->
+<div id="m3" class="page">
+  <div class="embedbox">
+    <iframe src="https://www.canva.com/design/DAG526IRPvk/vZyIhIOCSLvqlSOqoWLcqg/view?embed"></iframe>
+  </div>
+</div>
+
+<!-- ===================== PAGE 4 ===================== -->
+<div id="m4" class="page">
+  <div class="embedbox">
+    <iframe src="https://www.canva.com/design/DAG6WK6oD8E/yam7roGBwkq5pS5U9kkZVA/view?embed"></iframe>
+  </div>
+</div>
+
+<!-- ===================== MENU ===================== -->
 <div class="menu-bar">
-  <div class="menu-item active" data-page="home" onclick="go('home')">Home</div>
-  <div class="menu-item" data-page="m1" onclick="go('m1')">Manajerial</div>
-  <div class="menu-item" data-page="m2" onclick="go('m2')">Supervisi</div>
-  <div class="menu-item" data-page="m3" onclick="go('m3')">Kemitraan</div>
-  <div class="menu-item" data-page="m4" onclick="go('m4')">Kewirausahaan</div>
+  <div class="menu-item active" data="home">Home</div>
+  <div class="menu-item" data="m1">Manajerial</div>
+  <div class="menu-item" data="m2">Supervisi</div>
+  <div class="menu-item" data="m3">Kemitraan</div>
+  <div class="menu-item" data="m4">Kewirausahaan</div>
 </div>
 
 <script>
-function go(page){
-  document.querySelectorAll(".menu-item").forEach(btn=>{
-    btn.classList.remove("active")
-  })
-  document.querySelector('.menu-item[data-page="'+page+'"]').classList.add("active")
-
-  const area=document.getElementById("content")
-
-  /* HOME */
-  if(page==="home"){
-    area.innerHTML=`
-      <div class="home-bg">
-        <div class="home-box">
-          <h1>Selamat Datang, Ibu Yustina 👩‍🏫</h1>
-          <p>Dashboard pembelajaran, supervisi, kemitraan, dan kewirausahaan sekolah.<br>Silakan pilih menu di bawah.</p>
-        </div>
-      </div>
-    `
-  }
-
-  /* MANAJERIAL */
-  if(page==="m1"){
-    area.innerHTML=`
-      <div class="embed-wrapper">
-        <div style="position:relative;width:100%;height:0;padding-top:56.25%;
-          box-shadow:0 2px 8px rgba(63,69,81,.16);
-          overflow:hidden;border-radius:8px;margin-top:1em;">
-          <iframe loading="lazy"
-            style="position:absolute;width:100%;height:100%;top:0;left:0;border:0;"
-            src="https://www.canva.com/design/DAG5ztnghsM/77JsyklClNF6-VrNosrT8w/view?embed"
-            allowfullscreen>
-          </iframe>
-        </div>
-      </div>
-    `
-  }
-
-  /* SUPERVISI — kamu baru kirim link ini */
-  if(page==="m2"){
-    area.innerHTML=`
-      <div class="embed-wrapper">
-        <div style="position:relative;width:100%;height:0;padding-top:56.25%;
-          box-shadow:0 2px 8px rgba(63,69,81,.16);
-          overflow:hidden;border-radius:8px;margin-top:1em;">
-          <iframe loading="lazy"
-            style="position:absolute;width:100%;height:100%;top:0;left:0;border:0;"
-            src="https://www.canva.com/design/DAG6R-t068I/RtTemAldUg320D-JLWRYxA/view?embed"
-            allowfullscreen>
-          </iframe>
-        </div>
-      </div>
-    `
-  }
-
-  /* KEMITRAAN */
-  if(page==="m3"){
-    area.innerHTML=`
-      <div class="embed-wrapper">
-        <div style="position:relative;width:100%;height:0;padding-top:56.25%;
-          box-shadow:0 2px 8px rgba(63,69,81,.16);
-          overflow:hidden;border-radius:8px;margin-top:1em;">
-          <iframe loading="lazy"
-            style="position:absolute;width:100%;height:100%;top:0;left:0;border:0;"
-            src="https://www.canva.com/design/DAG526IRPvk/vZyIhIOCSLvqlSOqoWLcqg/view?embed"
-            allowfullscreen>
-          </iframe>
-        </div>
-      </div>
-    `
-  }
-
-  /* KEWIRAUSAHAAN */
-  if(page==="m4"){
-    area.innerHTML=`
-      <div class="embed-wrapper">
-        <div style="position:relative;width:100%;height:0;padding-top:56.25%;
-          box-shadow:0 2px 8px rgba(63,69,81,.16);
-          overflow:hidden;border-radius:8px;margin-top:1em;">
-          <iframe loading="lazy"
-            style="position:absolute;width:100%;height:100%;top:0;left:0;border:0;"
-            src="https://www.canva.com/design/DAG6WK6oD8E/yam7roGBwkq5pS5U9kkZVA/view?embed"
-            allowfullscreen>
-          </iframe>
-        </div>
-      </div>
-    `
+/* ================= TYPEWRITER ================= */
+const msg = "Selamat datang, Ibu Yustina, S.Pd, M.M.";
+let pos = 0;
+function type(){
+  const el = document.getElementById("typing");
+  if(pos < msg.length){
+    el.innerHTML += msg.charAt(pos);
+    pos++;
+    setTimeout(type, 65);
+  } else {
+    el.innerHTML += " ";
   }
 }
+type();
+
+/* ================= NAVIGATION ================= */
+const pages = document.querySelectorAll(".page");
+document.querySelectorAll(".menu-item").forEach(btn=>{
+  btn.onclick = ()=>{
+    document.querySelectorAll(".menu-item").forEach(m=>m.classList.remove("active"));
+    btn.classList.add("active");
+
+    pages.forEach(p=>p.classList.remove("active"));
+    document.getElementById(btn.getAttribute("data")).classList.add("active");
+  }
+});
 </script>
 
 </body>
